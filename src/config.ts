@@ -27,6 +27,7 @@ export enum PreviewColorScheme {
 }
 
 type VSCodeMPEConfigKey =
+  | 'additionalLinkSchemes'
   | 'automaticallyShowPreviewOfMarkdownBeingEdited'
   | 'configPath'
   | 'enableImageLightbox'

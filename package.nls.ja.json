@@ -148,5 +148,6 @@
   "markdown-preview-enhanced.startCrossnoteServer.title": "MPE:Crossnoteサーバーを起動",
   "markdown-preview-enhanced.stopCrossnoteServer.title": "MPE:Crossnoteサーバーを停止",
   "markdown-preview-enhanced.crossnoteServePort.description": "「crossnoteサーバーを起動」コマンドで起動したcrossnoteサーバーが使用するポートです。使用中の場合は自動的に増加します。",
-  "markdown-preview-enhanced.buildStandaloneWiki.title": "MPE:スタンドアロンwiki（HTML）をビルド"
+  "markdown-preview-enhanced.buildStandaloneWiki.title": "MPE:スタンドアロンwiki（HTML）をビルド",
+  "markdown-preview-enhanced.additionalLinkSchemes.markdownDescription": "Additional URI schemes allowed on preview links, such as `zotero` or `obsidian` (without a colon). User settings only. Invalid or reserved schemes (`javascript`, `vbscript`, `data`, `command`, `blob`, `filesystem`, `file`) are ignored. Run **Developer: Reload Window** after changing this setting. This does not allow custom schemes in images or iframes."
 }

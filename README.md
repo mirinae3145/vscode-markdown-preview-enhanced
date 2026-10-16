@@ -41,6 +41,19 @@ For more information about this project and how to use this extension, please ch
 
 See the [Keybindings](#keybindings) table below for more shortcuts.
 
+## Custom application links
+
+To open links such as `zotero://...` or `obsidian://...` from the preview, add this to your VS Code **User** settings:
+
+```json
+"markdown-preview-enhanced.additionalLinkSchemes": ["zotero", "obsidian"]
+```
+
+Run **Developer: Reload Window** after changing the list.
+Workspace settings and `.crossnote` configuration cannot grant this permission.
+Only add applications you trust; the receiving application must be installed and registered to handle its scheme.
+The setting applies to links in the preview body, outline, and backlinks, not images or iframes.
+
 ## Privacy
 
 **This extension does not collect, transmit, or share your data with any external service.** The core preview, scroll sync, math typesetting, diagram rendering, and all editor features run entirely on your local machine. No telemetry, no tracking, no phone-home.

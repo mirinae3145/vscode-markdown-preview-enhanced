@@ -24,3 +24,5 @@ prettier.config.js
 .eslintrc.js
 .husky
 gulpfile.js
+graft/**
+AGENTS.md

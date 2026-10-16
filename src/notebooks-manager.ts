@@ -16,6 +16,7 @@ import {
   computeEditorAssociations,
 } from './editor-associations';
 import FileWatcher from './file-watcher';
+import { getAdditionalLinkSchemes } from './link-security-policy';
 import { getAllPreviewProviders } from './preview-provider';
 import {
   getUserScopeGlobalConfigPath,
@@ -78,6 +79,7 @@ class NotebooksManager {
           workspaceFolderUri.authority,
         ),
         config: {},
+        securityPolicy: { additionalLinkSchemes: getAdditionalLinkSchemes() },
       });
     } catch (error) {
       this.failedNotebookPaths.add(notebookPathStr);

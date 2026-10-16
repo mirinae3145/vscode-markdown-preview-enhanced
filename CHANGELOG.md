@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added the user-only `markdown-preview-enhanced.additionalLinkSchemes` setting for custom application links such as `zotero` and `obsidian`. Reload the window after changing it. Link opening rechecks the current user permissions; workspace and document settings cannot grant them.
+
+### Picked up from crossnote 0.9.42-mirinae3145
+
+The following entry is taken verbatim from crossnote commit `a7919b9`, distributed as the `0.9.42-mirinae3145` release package.
+
+- Host applications can supply `securityPolicy.additionalLinkSchemes` when creating a notebook to preserve custom links in preview content, outlines, and backlinks. The policy is isolated from document configuration and does not extend image, iframe, form, or SVG URL permissions.
+
 ## [0.8.40] - 2026-10-09
 
 ### Picked up from crossnote 0.9.42

@@ -11,11 +11,13 @@ const recorder = {
   commands: new Map(),
   clipboard: { text: null },
   warnings: [],
+  openedExternal: [],
   activeEditorHandlers: [],
   reset() {
     this.commands = new Map();
     this.clipboard = { text: null };
     this.warnings = [];
+    this.openedExternal = [];
     this.activeEditorHandlers = [];
   },
 };
@@ -135,7 +137,7 @@ const VSCODE_STUB_SOURCE = `
       registerTextDocumentContentProvider: () => disposable,
       createFileSystemWatcher: () => ({ onDidCreate: event, onDidChange: event, onDidDelete: event, dispose: noop }),
       findFiles: async () => [],
-      fs: { readFile: async () => new Uint8Array(), writeFile: async () => {}, stat: async () => ({}) },
+      fs: { isWritableFileSystem: (scheme) => ['file', 'vscode-remote'].includes(scheme) ? true : undefined, readFile: async () => new Uint8Array(), writeFile: async () => {}, stat: async () => ({}) },
       onDidChangeConfiguration: event,
       onDidSaveTextDocument: event,
       onDidChangeTextDocument: event,
@@ -164,7 +166,7 @@ const VSCODE_STUB_SOURCE = `
         },
         readText: async () => '',
       },
-      openExternal: async () => true,
+      openExternal: async (uri) => { recorder.openedExternal.push(uri); return true; },
       uriScheme: 'vscode',
       appName: 'VS Code',
     },
@@ -186,7 +188,8 @@ const VSCODE_STUB_SOURCE = `
 const CROSSNOTE_STUB_SOURCE = `
   module.exports = {
     Notebook: {
-      init: async ({ notebookPath, fs }) => ({
+      init: async ({ notebookPath, fs, securityPolicy }) => ({
+        securityPolicy,
         notebookPath,
         notes: {},
         config: {},

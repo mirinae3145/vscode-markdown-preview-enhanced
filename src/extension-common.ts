@@ -19,6 +19,7 @@ import { customEditorProviderOptions } from './custom-editor-options';
 import { findFragmentTargetLine } from './find-fragment-target-line';
 import { pasteImageFile, uploadImageFile } from './image-helper';
 import NotebooksManager from './notebooks-manager';
+import { previewLinkAction } from './link-security-policy';
 import { PreviewCustomEditorProvider } from './preview-custom-editor-provider';
 import {
   PreviewProvider,
@@ -811,7 +812,11 @@ export async function initExtensionCommon(context: vscode.ExtensionContext) {
     href: string;
     scheme: string;
   }) {
-    href = decodeURIComponent(href);
+    try {
+      href = decodeURIComponent(href).trim();
+    } catch {
+      return;
+    }
     href = href
       .replace(/^vscode-resource:\/\//, '')
       .replace(/^vscode-webview-resource:\/\/(.+?)\//, '')
@@ -844,6 +849,14 @@ export async function initExtensionCommon(context: vscode.ExtensionContext) {
         /^https?:\/\/file(.+?)\.vscode-webview\.net\/+/,
         `${scheme}:///`,
       );
+    const action = previewLinkAction(href, vscode.Uri.parse(_uri).scheme);
+    if (action === 'blocked') {
+      return;
+    }
+    if (action === 'custom') {
+      await vscode.env.openExternal(vscode.Uri.parse(href));
+      return;
+    }
     if (
       ['.pdf', '.xls', '.xlsx', '.doc', '.ppt', '.docx', '.pptx'].indexOf(
         path.extname(href),
